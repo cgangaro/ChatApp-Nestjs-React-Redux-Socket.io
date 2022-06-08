@@ -1,0 +1,6 @@
+.main_container {
+    height: 50em;
+    /* -webkit-border-radius: 120px / 120px;
+    -moz-border-radius: 120px / 120px; */
+    border-radius: 5%;
+}
