@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from '../State';
 import "./CSS/AffMsg.css"
 import "./CSS/All.css"
+import { validateInput } from '../Utils/logUtils';
 
 interface msgToSend {
     sender: string;
@@ -22,32 +23,14 @@ function AffMsg() {
 
     const { msgAdd, setUsername } = bindActionCreators(actionCreators, dispatch);
 
-    const [id, setId] = useState('');
     const [text, setText] = useState('Wsh la team');
     const [recipient, setRecipient] = useState('');
 
     utilsData.socket.removeAllListeners();
 
-    utilsData.socket.on('connect', function() {
-        console.log('Connected');
-        utilsData.socket.emit('msgConnection');
-    });
-
-    utilsData.socket.on('disconnect', function() {
-        console.log('Disconnected');
-    });
-    
-    utilsData.socket.on('msgToClient', function(data: any) {
-        if (data === 505)
-        console.log('msgToServer', 'Msg bien reçu : 505');
-        else
-        console.log('msgToServer', data);
-    });
-
-    utilsData.socket.on('ID', function(data: any) {
-        console.log('ID received :', data);
-        setId(data);
-    });
+    // utilsData.socket.on('disconnect', function() {
+    //     console.log('Disconnected');
+    // });
 
     utilsData.socket.on('msgInputToOtherClient', function(msgToSend: any) {
         console.log(msgToSend.sender, 'said: ', msgToSend.text);
@@ -57,28 +40,6 @@ function AffMsg() {
         }
         msgAdd(newmsg);
     })
-
-    function validateInput() {
-        return id.length > 0 && text.length > 0 && recipient.length > 0;
-    }
-
-    function sendMessage() {
-        if (validateInput()) {
-        const message: msgToSend = {
-            sender: id,
-            recipient: recipient,
-            text: text,
-        };
-        const msgToList: msgList = {
-            sender: logData.username,
-            text: text
-        }
-
-        utilsData.socket.emit('msgToOtherClient', message);
-        msgAdd(msgToList);
-        setText('');
-        }
-    }
 
     const newmsg: msgList = {
         text: "ok1",
@@ -104,6 +65,27 @@ function AffMsg() {
             )
     }
 
+    function sendMessage() {
+        console.log("sendMessage()")
+
+        if (validateInput(recipient) && validateInput(text)) {
+            const message: msgToSend = {
+                sender: logData.id,
+                recipient: recipient,
+                text: text,
+            }
+            const msgToList: msgList = {
+                sender: logData.username,
+                text: text
+            };
+            utilsData.socket.emit('msgToOtherClient', message);
+            msgAdd(msgToList);
+            setText('');
+        }
+        else
+            console.log("Msg non valide")
+    }
+
   return (
     <>
         <div className="main_container" id="main_AffMsg">
@@ -114,7 +96,7 @@ function AffMsg() {
                     </div>
                 ))}
             </div>
-            <div id="send">
+            <div id="sendZone">
                 <input
                     value={recipient}
                     onChange={e => setRecipient(e.target.value)}

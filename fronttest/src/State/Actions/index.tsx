@@ -14,7 +14,12 @@ type SetUsernameAction = {
     payload: string
 }
 
-export type logAction = SetUsernameAction
+type SetIdAction = {
+    type: LogActionType.SETID
+    payload: string
+}
+
+export type logAction = SetUsernameAction | SetIdAction
 
 //exemple
 type DepositAction = {

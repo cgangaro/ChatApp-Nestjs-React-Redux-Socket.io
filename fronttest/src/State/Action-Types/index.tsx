@@ -11,7 +11,8 @@ export enum MsgActionType {
 }
 
 export enum LogActionType {
-    SETUSERNAME = "SETUSERNAME"
+    SETUSERNAME = "SETUSERNAME",
+    SETID = "SETID"
 }
 
 export enum utilsActionType {

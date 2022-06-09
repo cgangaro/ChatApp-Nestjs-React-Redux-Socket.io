@@ -10,9 +10,18 @@ import { msgList } from "../type"
 // };
 
 export const setUsername = (item: string) => {
-    return (dispatch: Dispatch<logAction>) => { //Dispatch<Action> indique que nous envoyons une action Action
+    return (dispatch: Dispatch<logAction>) => {
         dispatch({
             type: LogActionType.SETUSERNAME,
+            payload: item
+        })
+    }
+}
+
+export const setId = (item: string) => {
+    return (dispatch: Dispatch<logAction>) => {
+        dispatch({
+            type: LogActionType.SETID,
             payload: item
         })
     }

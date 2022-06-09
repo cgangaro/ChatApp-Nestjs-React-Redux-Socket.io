@@ -7,24 +7,30 @@ import { bindActionCreators } from "redux";
 import { io } from "socket.io-client";
 import { validateInput } from "../Utils/logUtils";
 
+interface Client {
+  id: string;
+  username: string;
+}
+
+let friendsClient: Client[] = [];
+
 function FriendsList() {
 
   const logData = useSelector((state: RootState) => state.log)
   const utilsData = useSelector((state: RootState) => state.utils)
   const dispatch = useDispatch();
 
-  const { msgAdd, setUsername } = bindActionCreators(actionCreators, dispatch);
+  const [friendsList, setFriendsList] = React.useState();
 
-  const [name, setName] = React.useState('');
+  React.useEffect(() => {
+    utilsData.socket.emit('friendsListRequest');
+    utilsData.socket.on('friendsList', function(arrClient: Client[]) {
+      console.log('Friends List received');
+      friendsClient = arrClient;
+    })
+  })
 
-  function sendUsername() {
-      if (validateInput(name))
-      {
-        setUsername(name);
-        utilsData.socket.emit('setUsername', name);
-      }
-      setName("");
-  }
+  
 
   function AffUsername(props: {}) {
     if (logData.username.length > 0)
@@ -44,15 +50,6 @@ function FriendsList() {
   return (
     <div className="main_container" id="main_FriendsList">
         <AffUsername />
-        <div id="setUsernameDiv">
-          <input
-            value={name}
-            onChange={e => setName(e.target.value)}
-            placeholder="Enter message..."
-          />
-        <button type="button" onClick={() => sendUsername()}>Set username</button>
-        </div>
-        {/* <h1>FriendsList</h1> */}
     </div>
   );
 }

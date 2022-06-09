@@ -4,10 +4,12 @@ import { logAction } from "../Actions";
 
 interface LogData {
   username: string;
+  id: string;
 }
 
 export const initialState: LogData = {
-  username: ""
+  username: "",
+  id: ""
 };
 
 export const logReducer = (state: LogData = initialState, action: logAction) => {
@@ -20,6 +22,15 @@ export const logReducer = (state: LogData = initialState, action: logAction) => 
                 };
             else
                 return state;
+        }
+        case LogActionType.SETID: {
+          if (validateInput(action.payload))
+              return {
+              ...state,
+              id: action.payload
+              };
+          else
+              return state;
         }
         default:
         return state;

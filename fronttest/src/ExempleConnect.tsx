@@ -8,7 +8,7 @@ interface msgToSend {
   text: string;
 }
 
-const Connect: React.FC = () => {
+const ExempleConnect: React.FC = () => {
 
   const [id, setId] = useState('');
   const [text, setText] = useState('Wsh la team');
@@ -75,4 +75,4 @@ const Connect: React.FC = () => {
   );
 };
 
-export default Connect;
+export default ExempleConnect;

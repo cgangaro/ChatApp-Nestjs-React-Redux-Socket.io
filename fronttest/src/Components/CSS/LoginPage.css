@@ -1,5 +1,5 @@
 #main {
-    height: 50vh;
+    height: 30vh;
     width: 50vh;
     background-color: #fbf8f4;
     margin: auto;
@@ -11,14 +11,21 @@
 }
 
 #main2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     height: 100%;
-    margin: 3vw;
-    padding-left: 2vw;
-    padding-right: 2vw;
-    border: solid black 2px;
+    margin-top: 9%;
+    margin-bottom: 9%;
+    margin-left: 6%;
+    margin-right: 6%;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding: 4%;
 }
 
-#main2 p:first-child {
+#main2 p {
+    margin: 0;
     font-size: 3vh;
     color: white;
     text-align: center;
@@ -27,17 +34,13 @@
     -moz-border-radius: 40px / 40px;
     border-radius: 40px / 40px;
     width: 100%;
-    padding-top: 1vh;
-    padding-bottom: 1vh;
-}
-
-#main2 p {
-    font-size: 2vh;
-    text-align: center;
+    padding-top: 4%;
+    padding-bottom: 4%;
 }
 
 #inputAndButton {
     text-align: center;
+    height: 20%;
 }
 
 #main2 input {
@@ -46,11 +49,61 @@
     border-radius: 40px / 40px;
     border: 1px solid #E7E9E8;
     background-color: white;
-    color: #E7E9E8;
-    width: 25vw;
-    height: 2vh;
+    color: black;
+    width: 45%;
+    height: 100%;
+    padding-left: 1vw;
 }
 
-#inputAndButton button {
+#main2 button {
+    position: relative;
+    -webkit-border-radius: 40px / 40px;
+    -moz-border-radius: 40px / 40px;
+    border-radius: 40px / 40px;
+    width: 20%;
+    height: 100%;
+    margin-left: 3%;
+    border: none;
+    background-color: #1F56BD;
+    color: white;
+    cursor:pointer;
+    user-select:none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s; /* Safari */
+}
+  
+#main2 button:hover {
+    background-color: white;
+    border: #1F56BD solid 1px;
+    cursor: pointer;
+    color: #1F56BD;
+}
+  
+#main2 button:after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 4em;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.5s;
+    box-shadow: 0 0 10px 40px white;
+}
 
+#main2 button:active:after {
+    box-shadow: 0 0 0 0 white;
+    position: absolute;
+    border-radius: 4em;
+    left: 0;
+    top:0;
+    opacity: 1;
+    transition: 0s;
+}
+
+#main2 button:active {
+    top: 1px;
 }

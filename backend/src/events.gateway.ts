@@ -71,9 +71,8 @@ import {
 
     @SubscribeMessage('msgToOtherClient')
     async msgToOtherClient(client: Socket, data: any) {
-      this.logger.log(`${client.id} said: ${data.text} to ${data.recipient}`);
+      this.logger.log(`${data.sender} said: ${data.text} to ${data.recipient}`);
       const iencli = arrClient.find(obj => obj.username === data.recipient);
-      this.logger.log(`msgToOtherClient iencli =  ${iencli.username}`);
       if (iencli != null)
       {
         this.server.to(iencli.id).emit('msgInputToOtherClient', data);
@@ -85,5 +84,11 @@ import {
       this.logger.log(`${client.id} set his username: ${data}`);
       const iencli = arrClient.find(obj => obj.id === client.id);
       iencli.username = data;
+    }
+
+    @SubscribeMessage('friendsListRequest')
+    async listFriendsRequest(client: Socket) {
+      this.logger.log(`${arrClient.find(obj => obj.id === client.id).username} request her friends list`);
+      this.server.to(client.id).emit('friendsList', arrClient);
     }
   }

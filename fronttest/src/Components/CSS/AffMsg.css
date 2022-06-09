@@ -4,7 +4,7 @@
 }
 
 #affichage {
-    height: 65%;
+    height: 85%;
     overflow: hidden;
 }
 
@@ -63,9 +63,9 @@
 }
 
 
-#send {
+#sendZone {
     /* display: flex; */
     /* flex-direction: column; */
-    height: 35%;
-    border: solid rgb(87, 115, 176) 2px;
+    height: 15%;
+    border: solid black 2px;
 }
