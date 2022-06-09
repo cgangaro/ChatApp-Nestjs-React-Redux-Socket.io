@@ -6,27 +6,49 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from './State';
 import { RootState } from './State/Reducers';
 import AffMsg from './Components/AffMsg';
-import { msg } from './State/type';
+import { msgList } from './State/type';
 import FriendsList from './Components/FriendsList';
 import HistoryList from './Components/HistoryList';
 import Connect from './Connect';
+import { validateInput } from './Utils/logUtils';
+import Test from './Components/Test';
+import LoginPage from './Components/LoginPage';
 
 function App() {
 
   const dispatch = useDispatch();
 
+  const logData = useSelector((state: RootState) => state.log)
+
   const { depositMoney, withdrawMoney, bankrupt, msgAdd } = bindActionCreators(actionCreators, dispatch);
 
-  const newmsg: msg = {
-    text: "ok1",
-    sender: "ok2"
+  function MainAff() {
+    if (validateInput(logData.username))
+      return (
+        <>
+          <FriendsList />
+          <AffMsg />
+          <HistoryList />
+        </>
+      )
+    else
+        return (
+          <LoginPage />
+        )
   }
 
   return (
     <div className="App">
-      <FriendsList/>
+      <MainAff/>
+      {/* <div className="container" id="test1">
+      </div>
+      <div className="container" id="test2">
+      </div>
+      <div className="container" id="test3">
+      </div> */}
+      {/* <FriendsList/>
       <AffMsg/>
-      <HistoryList/>
+      <HistoryList/> */}
       {/* <button onClick={() => msgAdd(newmsg)}>AddMsg Test</button>
       <button onClick={() => addMsg(newmsg)}>Add Message</button>
       <button onClick={() => depositMoney(1000)}>Deposit</button>

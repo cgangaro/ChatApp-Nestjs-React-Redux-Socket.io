@@ -1,13 +1,20 @@
-import { ActionType, MsgActionType } from "../Action-Types"
-import { msg } from "../type"
+import { ActionType, LogActionType, MsgActionType } from "../Action-Types"
+import { msgList } from "../type"
 
 //pour le chat
 type MsgAddAction = {
     type: MsgActionType.ADDMSG
-    payload: msg
+    payload: msgList
 }
 
 export type msgAction = MsgAddAction
+
+type SetUsernameAction = {
+    type: LogActionType.SETUSERNAME
+    payload: string
+}
+
+export type logAction = SetUsernameAction
 
 //exemple
 type DepositAction = {

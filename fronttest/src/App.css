@@ -1,6 +1,15 @@
 .App {
   display: flex;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   float: left;
-  background-color: #0096c7;
+  background-color: #1F56BD;
+  font-family: Roboto;
 }
+
+/* .container {
+  display: flex;
+  background-color: grey;
+  height: 10vh;
+  width: 100%;
+} */

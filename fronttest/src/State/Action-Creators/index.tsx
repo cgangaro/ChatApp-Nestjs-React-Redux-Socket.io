@@ -1,15 +1,24 @@
 import { Dispatch } from "redux"
 import { action } from "typesafe-actions";
-import { ActionType, MsgActionType } from "../Action-Types"
-import { Action, msgAction } from "../Actions"
-import { msg } from "../type"
+import { ActionType, LogActionType, MsgActionType } from "../Action-Types"
+import { Action, logAction, msgAction } from "../Actions"
+import { msgList } from "../type"
 
 // export const todoActions = {
 //     add: (item: string) => action(actionTypes.ADD, item),
 //     delete: (idx: number) => action(actionTypes.DELETE, idx)
 // };
 
-export const msgAdd = (item: msg) => {
+export const setUsername = (item: string) => {
+    return (dispatch: Dispatch<logAction>) => { //Dispatch<Action> indique que nous envoyons une action Action
+        dispatch({
+            type: LogActionType.SETUSERNAME,
+            payload: item
+        })
+    }
+}
+
+export const msgAdd = (item: msgList) => {
     return (dispatch: Dispatch<msgAction>) => { //Dispatch<Action> indique que nous envoyons une action Action
         dispatch({
             type: MsgActionType.ADDMSG,

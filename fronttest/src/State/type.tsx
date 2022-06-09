@@ -1,6 +1,6 @@
 import react from 'react'
 
-export interface msg{
+export interface msgList{
     text: string,
     sender: string
 }

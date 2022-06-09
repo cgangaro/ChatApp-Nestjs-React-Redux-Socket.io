@@ -17,7 +17,6 @@ import {
 
   let arrClient: Client[] = [];
 
-  
   @WebSocketGateway({
     cors: {
       origin: '*',
@@ -35,6 +34,7 @@ import {
         if (indexOfClient !== -1)
           arrClient.splice(indexOfClient, 1);
     }
+
     handleConnection(client: any, ...args: any[]) {
         this.logger.log( `Client connected: ${client.id}`);
         const newClient: Client = {
@@ -44,6 +44,7 @@ import {
         this.logger.log(newClient);
         arrClient.push(newClient)
     }
+    
     async afterInit(server: any) {
         this.logger.log('Init');
     }
@@ -74,6 +75,15 @@ import {
       const iencli = arrClient.find(obj => obj.username === data.recipient);
       this.logger.log(`msgToOtherClient iencli =  ${iencli.username}`);
       if (iencli != null)
+      {
         this.server.to(iencli.id).emit('msgInputToOtherClient', data);
+      }
+    }
+
+    @SubscribeMessage('setUsername')
+    async setUsername(client: Socket, data: string) {
+      this.logger.log(`${client.id} set his username: ${data}`);
+      const iencli = arrClient.find(obj => obj.id === client.id);
+      iencli.username = data;
     }
   }

@@ -2,3 +2,7 @@
     width: 25%;
     background-color: aliceblue;
 }
+
+#affUsername {
+    font-size: 2vh;
+}

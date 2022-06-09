@@ -1,18 +1,15 @@
 import { MsgActionType } from "../Action-Types";
 import { msgAction } from "../Actions";
-import { msg } from "../type";
+import { msgList } from "../type";
 
 interface Conversation {
   count: number;
-  msg: msg[];
+  msg: msgList[];
 }
 
 export const initialState: Conversation = {
-  count: 1,
-  msg: [{
-    text : "textTest",
-    sender : "senderTest"
-  }]
+  count: 0,
+  msg: []
 };
 
 export const msgReducer = (state: Conversation = initialState, action: msgAction) => {

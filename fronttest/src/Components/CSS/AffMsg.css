@@ -1,11 +1,10 @@
 #main_AffMsg {
     width: 50%;
-    background-color: aliceblue;
+    background-color: #F5F6FF;
 }
 
 #affichage {
     height: 65%;
-    border: solid rgb(87, 115, 176) 2px;
     overflow: hidden;
 }
 
@@ -17,22 +16,56 @@
     display: none;
 }
 
-#bulle {
-    width: auto;
-    height: 4.5vh;
-    margin-left: 1vh;
-    background-color: rgb(211, 214, 226);
+#affListMsg {
+    display: flex;
+}
+
+.msgFrame {
+    width: 100%;
+    height: auto;
+    display: flex;
+    text-align: center;
+    vertical-align: middle;
+    padding-bottom: 0.3vh;
+}
+
+#myMsgFrame {
+    flex-direction: row-reverse;
+}
+
+#correspondentMsgFrame {
+    flex-direction: row;
+}
+
+.bubble {
     -webkit-border-radius: 80px / 80px;
     -moz-border-radius: 80px / 80px;
     border-radius: 80px / 80px;
+    width: auto;
+    min-width: 9vh;
+    max-width: 30vw;
+    margin: 0%;
+    padding: 0%;
 }
 
-#bulle p{
+.bubble p {
     margin-left: 2vw;
-    margin-right: 3vw;
+    margin-right: 2vw;
 }
 
-#envoi {
+#myBubbleMessage {
+    background-color: #326DDD;
+    color: white;
+}
+
+#correspondentBubbleMessage {
+    background-color: white;
+}
+
+
+#send {
+    /* display: flex; */
+    /* flex-direction: column; */
     height: 35%;
     border: solid rgb(87, 115, 176) 2px;
 }

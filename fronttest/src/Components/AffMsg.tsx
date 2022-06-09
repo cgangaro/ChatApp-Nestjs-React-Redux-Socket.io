@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../State";
-import { msg } from "../State/type";
-import MessageComponent from "./Message";
+import { msgList } from "../State/type";
 import io from 'socket.io-client';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../State';
 import "./CSS/AffMsg.css"
 import "./CSS/All.css"
-import bankReducer from '../State/Reducers/bankReducers';
-
-const socket = io('http://localhost:5000');
 
 interface msgToSend {
     sender: string;
@@ -18,42 +14,44 @@ interface msgToSend {
     text: string;
   }
 
-
 function AffMsg() {
-    const amount = useSelector((state: RootState) => state.bank)
     const msgList = useSelector((state: RootState) => state.msg)
+    const logData = useSelector((state: RootState) => state.log)
+    const utilsData = useSelector((state: RootState) => state.utils)
     const dispatch = useDispatch();
 
-    const { msgAdd, depositMoney, withdrawMoney, bankrupt } = bindActionCreators(actionCreators, dispatch);
+    const { msgAdd, setUsername } = bindActionCreators(actionCreators, dispatch);
 
     const [id, setId] = useState('');
-    const [username, setUsername] = useState('');
     const [text, setText] = useState('Wsh la team');
     const [recipient, setRecipient] = useState('');
 
-    socket.removeAllListeners();
-    socket.on('connect', function() {
+    utilsData.socket.removeAllListeners();
+
+    utilsData.socket.on('connect', function() {
         console.log('Connected');
-        socket.emit('msgConnection');
+        utilsData.socket.emit('msgConnection');
     });
-    socket.on('disconnect', function() {
+
+    utilsData.socket.on('disconnect', function() {
         console.log('Disconnected');
     });
-    socket.on('msgToClient', function(data) {
+    
+    utilsData.socket.on('msgToClient', function(data: any) {
         if (data === 505)
         console.log('msgToServer', 'Msg bien reçu : 505');
         else
         console.log('msgToServer', data);
     });
 
-    socket.on('ID', function(data) {
+    utilsData.socket.on('ID', function(data: any) {
         console.log('ID received :', data);
         setId(data);
     });
 
-    socket.on('msgInputToOtherClient', function(msgToSend) {
+    utilsData.socket.on('msgInputToOtherClient', function(msgToSend: any) {
         console.log(msgToSend.sender, 'said: ', msgToSend.text);
-        let newmsg: msg = {
+        let newmsg: msgList = {
             sender: msgToSend.sender,
             text: msgToSend.text
         }
@@ -71,31 +69,52 @@ function AffMsg() {
             recipient: recipient,
             text: text,
         };
+        const msgToList: msgList = {
+            sender: logData.username,
+            text: text
+        }
 
-        socket.emit('msgToOtherClient', message);
+        utilsData.socket.emit('msgToOtherClient', message);
+        msgAdd(msgToList);
         setText('');
         }
     }
 
-    const newmsg: msg = {
+    const newmsg: msgList = {
         text: "ok1",
         sender: "ok2"
+    }
+
+    function DisplayBubble(props: {msg: msgList}) {
+        if (props.msg.sender ===  logData.username)
+            return (
+                <div className="msgFrame" id="myMsgFrame">
+                    <div className="bubble" id="myBubbleMessage">
+                        <p>{props.msg.text}</p>
+                    </div>
+                </div>
+            )
+        else
+            return (
+                <div className="msgFrame" id="correspondentMsgFrame">
+                    <div className="bubble" id="correspondentBubbleMessage">
+                        <p>{props.msg.text}</p>
+                    </div>
+                </div>
+            )
     }
 
   return (
     <>
         <div className="main_container" id="main_AffMsg">
             <div id="affichage">
-                <p>{msgList.count}</p>
                 {msgList.msg.map((msg, index) => (
-                    <div key={index} style={{display:"flex", justifyContent:"space-between"}}>
-                        <div id="bulle" sender="you">
-                            <p>{msg.text}</p>
-                        </div>
+                    <div id="affListMsg" key={index}>
+                        <DisplayBubble msg={msg}/>
                     </div>
                 ))}
             </div>
-            <div id="envoi">
+            <div id="send">
                 <input
                     value={recipient}
                     onChange={e => setRecipient(e.target.value)}
