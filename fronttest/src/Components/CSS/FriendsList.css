@@ -1,8 +1,30 @@
 #main_FriendsList {
     width: 25%;
+    display: flex;
+    flex-direction: column;
     background-color: aliceblue;
 }
 
-#affUsername {
-    font-size: 2vh;
+/* #affUsername {
+    margin-top: 0%;
+    font-size: 3vh;
+    height: 10%;
+    background-color: blueviolet;
+} */
+
+#friendsList {  
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+}
+
+#listTitle {
+    height: 20%;
+    border: solid 2px black;
+}
+
+#friendFrame {
+    height: 90%;
+    background-color: blue;
 }

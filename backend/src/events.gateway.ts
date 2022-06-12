@@ -31,18 +31,21 @@ import {
     handleDisconnect(client: any) {
         this.logger.log( `Client disconnected: ${client.id}`);
         const indexOfClient = arrClient.findIndex(obj => obj.id === client.id);
+        for (let i = 0; i < arrClient.length; i++) {
+          if (arrClient.find(obj => obj.id !== client.id) && arrClient.find(obj => obj.username.length > 0))
+            this.server.to(arrClient[i].id).emit('removeFriend', arrClient[indexOfClient]);
+        }
         if (indexOfClient !== -1)
-          arrClient.splice(indexOfClient, 1);
+        arrClient.splice(indexOfClient, 1);
     }
 
     handleConnection(client: any, ...args: any[]) {
         this.logger.log( `Client connected: ${client.id}`);
         const newClient: Client = {
           id: client.id,
-          username: randomUsernameGenerate(),
+          username: "",
         };
-        this.logger.log(newClient);
-        arrClient.push(newClient)
+        arrClient.push(newClient);
     }
     
     async afterInit(server: any) {
@@ -51,7 +54,6 @@ import {
 
     @SubscribeMessage('msgConnection')
     async handleMessage(client: Socket, message: string) {
-      this.logger.log(arrClient);
       const iencli = arrClient.find(obj => obj.id === client.id);
       if (iencli !== null)
       {
@@ -84,6 +86,11 @@ import {
       this.logger.log(`${client.id} set his username: ${data}`);
       const iencli = arrClient.find(obj => obj.id === client.id);
       iencli.username = data;
+      this.server.to(client.id).emit('friendsList', arrClient);
+      for (let i = 0; i < arrClient.length; i++) {
+        if (arrClient.find(obj => obj.id !== client.id) && arrClient.find(obj => obj.username.length > 0))
+          this.server.to(arrClient[i].id).emit('newFriend', iencli);
+      }
     }
 
     @SubscribeMessage('friendsListRequest')

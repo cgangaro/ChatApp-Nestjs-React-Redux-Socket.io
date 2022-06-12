@@ -18,3 +18,8 @@ export enum LogActionType {
 export enum utilsActionType {
     
 }
+
+export enum clientListActionType {
+    ADDCLIENT="ADDCLIENT",
+    REMOVECLIENT="REMOVECLIENT"
+}

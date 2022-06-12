@@ -28,9 +28,11 @@
     "@nestjs/websockets": "^8.4.5",
     "math": "^0.0.3",
     "mathjs": "^10.6.1",
+    "nestjs": "^0.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "socket.io": "^4.5.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",

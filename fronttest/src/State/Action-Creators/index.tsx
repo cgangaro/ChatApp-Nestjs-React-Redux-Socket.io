@@ -1,13 +1,32 @@
 import { Dispatch } from "redux"
 import { action } from "typesafe-actions";
-import { ActionType, LogActionType, MsgActionType } from "../Action-Types"
-import { Action, logAction, msgAction } from "../Actions"
-import { msgList } from "../type"
+import { ActionType, clientListActionType, LogActionType, MsgActionType } from "../Action-Types"
+import { Action, clientListAction, logAction, msgAction } from "../Actions"
+import { Client, msgList } from "../type"
 
 // export const todoActions = {
 //     add: (item: string) => action(actionTypes.ADD, item),
 //     delete: (idx: number) => action(actionTypes.DELETE, idx)
 // };
+
+export const addClient = (item: Client) => {
+    return (dispatch: Dispatch<clientListAction>) => {
+        dispatch({
+            type: clientListActionType.ADDCLIENT,
+            payload: item
+        })
+    }
+}
+
+export const removeClient = (item: Client) => {
+    return (dispatch: Dispatch<clientListAction>) => {
+        dispatch({
+            type: clientListActionType.REMOVECLIENT,
+            payload: item
+        })
+    }
+}
+
 
 export const setUsername = (item: string) => {
     return (dispatch: Dispatch<logAction>) => {

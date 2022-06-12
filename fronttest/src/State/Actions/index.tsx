@@ -1,5 +1,19 @@
-import { ActionType, LogActionType, MsgActionType } from "../Action-Types"
-import { msgList } from "../type"
+import { ActionType, clientListActionType, LogActionType, MsgActionType } from "../Action-Types"
+import { Client, msgList } from "../type"
+
+
+type ClientAddAction = {
+    type: clientListActionType.ADDCLIENT
+    payload: Client
+}
+
+type ClientRemoveAction = {
+    type: clientListActionType.REMOVECLIENT
+    payload: Client
+}
+
+
+export type clientListAction = ClientAddAction | ClientRemoveAction
 
 //pour le chat
 type MsgAddAction = {
