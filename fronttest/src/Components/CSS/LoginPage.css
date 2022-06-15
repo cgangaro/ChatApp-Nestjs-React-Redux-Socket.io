@@ -1,6 +1,6 @@
 #main {
-    height: 30vh;
-    width: 50vh;
+    height: 40vh;
+    width: 60vh;
     background-color: #fbf8f4;
     margin: auto;
     display: flex;
@@ -13,10 +13,9 @@
 #main2 {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 100%;
-    margin-top: 9%;
-    margin-bottom: 9%;
+    margin-top: 6%;
+    margin-bottom: 6%;
     margin-left: 6%;
     margin-right: 6%;
     padding-left: 4%;
@@ -24,7 +23,7 @@
     padding: 4%;
 }
 
-#main2 p {
+#main2 #title {
     margin: 0;
     font-size: 3vh;
     color: white;
@@ -41,6 +40,7 @@
 #inputAndButton {
     text-align: center;
     height: 20%;
+    margin-top: 10%;
 }
 
 #main2 input {
@@ -106,4 +106,10 @@
 
 #main2 button:active {
     top: 1px;
+}
+
+#errorMsg {
+    color: red;
+    margin-top: 2%;
+    text-align: center;
 }

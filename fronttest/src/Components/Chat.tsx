@@ -1,25 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
 import "./CSS/FriendsList.css"
 import "./CSS/All.css"
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, RootState } from "../State";
 import { bindActionCreators } from "redux";
-import { io } from "socket.io-client";
-import { validateInput } from "../Utils/logUtils";
-import { render } from "@testing-library/react";
 import { Client, msg } from "../State/type";
 import AffMsg from "./AffMsg";
+import FriendsList from "./FriendsList";
 
 function Chat() {
     
     const logData = useSelector((state: RootState) => state.log)
     const utilsData = useSelector((state: RootState) => state.utils)
     const clientList = useSelector((state: RootState) => state.clientList)
-    const msg = useSelector((state: RootState) => state.msg)
 
     const dispatch = useDispatch();
 
-    const { addClient, removeClient, setActivConvers, conversAdd, msgAdd } = bindActionCreators(actionCreators, dispatch);
+    const { addClient, removeClient, addMsg } = bindActionCreators(actionCreators, dispatch);
 
     utilsData.socket.removeAllListeners();
 
@@ -30,8 +26,12 @@ function Chat() {
           if (arrClient[i].username.length > 0 && arrClient[i].id != logData.id)
           {
             console.log(`add client: ${arrClient[i].username}`)
-            addClient(arrClient[i]);
-            conversAdd(arrClient[i].username);
+            let newClient: Client = {
+              username: arrClient[i].username,
+              id: arrClient[i].id,
+              convers: {count: 0, msg: []}
+            }
+            addClient(newClient);
           }
         }
       })
@@ -39,8 +39,12 @@ function Chat() {
         console.log(`new Friend: ${client.username}, useEffect()`);
         if (client.id != logData.id)
         {
-          addClient(client);
-          conversAdd(client.username);
+          let newClient: Client = {
+            username: client.username,
+            id: client.id,
+            convers: {count: 0, msg: []}
+          }
+          addClient(newClient);
         }
       })
       utilsData.socket.on('removeFriend', function(client: Client) {
@@ -55,13 +59,14 @@ function Chat() {
             text: msgToSend.text,
             recipient: "Me"
         }
-        msgAdd(newmsg);
+        addMsg(newmsg);
     })
   
 
   return (
     <>
-
+    <FriendsList/>
+    <AffMsg/>
     </>
   );
 }

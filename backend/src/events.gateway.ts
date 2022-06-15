@@ -8,7 +8,6 @@ import {
   } from '@nestjs/websockets';
   import { Server, Socket } from 'socket.io';
   import { Logger } from '@nestjs/common';
-  import randomUsernameGenerate from './utils'
 
   interface Client {
     id: string;
@@ -54,13 +53,8 @@ import {
 
     @SubscribeMessage('msgConnection')
     async handleMessage(client: Socket, message: string) {
-      const iencli = arrClient.find(obj => obj.id === client.id);
-      if (iencli !== null)
-      {
-        this.logger.log(iencli.id);
-        this.logger.log(iencli.username);
-      }
-      const newmessage = `Hey! You have the id: ${client.id}, ${iencli.id} and your username is: ${iencli.username}. Welcome to our fucking server!`;
+      const _client_temp = arrClient.find(obj => obj.id === client.id);
+      const newmessage = `Hey! You have the id: ${client.id}, ${_client_temp.id} and your username is: ${_client_temp.username}. Welcome to our server!`;
       this.server.to(client.id).emit('msgToClient', newmessage);
       this.server.to(client.id).emit('ID', client.id);
     }
@@ -74,24 +68,33 @@ import {
     @SubscribeMessage('msgToOtherClient')
     async msgToOtherClient(client: Socket, data: any) {
       this.logger.log(`${data.sender} said: ${data.text} to ${data.recipient}`);
-      const iencli = arrClient.find(obj => obj.username === data.recipient);
-      if (iencli != null)
-      {
-        this.logger.log("MSG SEND");
-        this.server.to(iencli.id).emit('msgInputToOtherClient', data);
-      }
+      const _client_temp = arrClient.find(obj => obj.username === data.recipient);
+      if (_client_temp != null)
+        this.server.to(_client_temp.id).emit('msgInputToOtherClient', data);
     }
 
     @SubscribeMessage('setUsername')
     async setUsername(client: Socket, data: string) {
       this.logger.log(`${client.id} set his username: ${data}`);
-      const iencli = arrClient.find(obj => obj.id === client.id);
-      iencli.username = data;
+      if (arrClient.find(obj => obj.username === data))
+      {
+        this.server.to(client.id).emit('usernameRefused', arrClient);
+      }
+      else
+      {
+        arrClient.find(obj => obj.id === client.id).username = data;
+        this.server.to(client.id).emit('usernameAccepted', arrClient);
+      }
+    }
+
+    @SubscribeMessage('usernameRegistered')
+    async usernameRegistered(client: Socket, data: string) {
+      const _client_temp = arrClient.find(obj => obj.id === client.id);
       for (let i = 0; i < arrClient.length; i++) {
-        if (arrClient.find(obj => obj.id !== client.id) && arrClient.find(obj => obj.username.length > 0))
+        if (arrClient[i].id !== client.id && arrClient[i].username.length > 0)
         {
-          this.logger.log(`Envoie new friends ${iencli.username} to ${arrClient[i].username}, id = ${arrClient[i].id}`);
-          this.server.to(arrClient[i].id).emit('newFriend', iencli);
+          this.logger.log(`Envoie new friends ${_client_temp.username} to ${arrClient[i].username}, id = ${arrClient[i].id}`);
+          this.server.to(arrClient[i].id).emit('newFriend', _client_temp);
         }
       this.server.to(client.id).emit('friendsList', arrClient);
       }

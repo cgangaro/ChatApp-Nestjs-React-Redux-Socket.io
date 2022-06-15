@@ -1,5 +1,6 @@
-import { ActionType, clientListActionType, LogActionType, MsgActionType } from "../Action-Types"
-import { Client, msg } from "../type"
+import { clientListActionType, LogActionType } from "../Action-Types"
+import { Client, msg, msgList } from "../type"
+
 
 
 type ClientAddAction = {
@@ -12,27 +13,20 @@ type ClientRemoveAction = {
     payload: Client
 }
 
-
-export type clientListAction = ClientAddAction | ClientRemoveAction
-
-//pour le chat
 type MsgAddAction = {
-    type: MsgActionType.ADDMSG
+    type: clientListActionType.ADDMSG
     payload: msg
 }
 
-type ConversAddAction = {
-    type: MsgActionType.ADDCONVERS
+type SetActivConversAction = {
+    type: clientListActionType.SETACTIVECONVERS
     payload: string
 }
 
-type SetACtivConversAction = {
-    type: MsgActionType.SETACTIVECONVERS
-    payload: string
-}
+export type clientListAction = ClientAddAction | ClientRemoveAction | MsgAddAction | SetActivConversAction
 
 
-export type msgAction = MsgAddAction | ConversAddAction | SetACtivConversAction
+
 
 type SetUsernameAction = {
     type: LogActionType.SETUSERNAME
@@ -45,20 +39,3 @@ type SetIdAction = {
 }
 
 export type logAction = SetUsernameAction | SetIdAction
-
-//exemple
-type DepositAction = {
-    type: ActionType.DEPOSIT
-    payload: number //le payload?: veut dire que ce parametre est facultatif
-}
-
-type WithdrawAction = {
-    type: ActionType.WITHDRAW
-    payload: number
-}
-
-type BankruptAction = {
-    type: ActionType.BANKRUPT
-}
-
-export type Action = DepositAction | WithdrawAction | BankruptAction

@@ -1,21 +1,17 @@
 import { MsgActionType } from "../Action-Types";
 import { msgAction } from "../Actions";
-import { msg } from "../type";
+import { msg, msgList } from "../type";
 
-interface msgList {
-  name: string;
-  count: number;
-  msg: msg[];
-}
+
 
 interface Conversations {
-  active: string;
+  active: msgList;
   count: number;
   list: msgList[];
 }
 
 export const initialState: Conversations = {
-  active: "",
+  active: {name: "", count: 0, msg: []},
   count: 0,
   list: []
 };
@@ -93,7 +89,7 @@ export const msgReducer = (state: Conversations = initialState, action: msgActio
       };
     }
     case MsgActionType.SETACTIVECONVERS: {
-      console.log('reducer set active convers')
+      console.log('reducer set active convers');
       return {
         ...state,
         active: action.payload

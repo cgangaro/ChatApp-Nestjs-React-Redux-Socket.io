@@ -1,7 +1,4 @@
 import { io } from "socket.io-client";
-import { validateInput } from "../../Utils/logUtils";
-import { LogActionType } from "../Action-Types";
-import { logAction } from "../Actions";
 
 interface UtilsData {
   socket: any;
@@ -17,4 +14,3 @@ export const utilsReducer = (state: UtilsData = initialState, action: { type: an
         return state;
     }
 };
-
