@@ -77,6 +77,7 @@ import {
       const iencli = arrClient.find(obj => obj.username === data.recipient);
       if (iencli != null)
       {
+        this.logger.log("MSG SEND");
         this.server.to(iencli.id).emit('msgInputToOtherClient', data);
       }
     }
@@ -86,10 +87,13 @@ import {
       this.logger.log(`${client.id} set his username: ${data}`);
       const iencli = arrClient.find(obj => obj.id === client.id);
       iencli.username = data;
-      this.server.to(client.id).emit('friendsList', arrClient);
       for (let i = 0; i < arrClient.length; i++) {
         if (arrClient.find(obj => obj.id !== client.id) && arrClient.find(obj => obj.username.length > 0))
+        {
+          this.logger.log(`Envoie new friends ${iencli.username} to ${arrClient[i].username}, id = ${arrClient[i].id}`);
           this.server.to(arrClient[i].id).emit('newFriend', iencli);
+        }
+      this.server.to(client.id).emit('friendsList', arrClient);
       }
     }
 

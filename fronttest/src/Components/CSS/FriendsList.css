@@ -2,7 +2,9 @@
     width: 25%;
     display: flex;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: white;
+    padding: 0%;
+    margin-left: 5%;
 }
 
 /* #affUsername {
@@ -16,15 +18,61 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: green;
 }
 
 #listTitle {
-    height: 20%;
-    border: solid 2px black;
+    height: 10%;
+    font-size: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1F56BD;
+    padding-top: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+#friendFrameMain {
+    height: 5%;
+    font-size: 1.5vh;
+    display: flex;
+    align-items: center;
 }
 
 #friendFrame {
-    height: 90%;
-    background-color: blue;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+}
+
+#friendFrameActiv {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #F3F6FF;
+}
+
+#friendFrame:hover {
+    cursor: pointer;
+}
+
+#friendFrameActiv:hover {
+    cursor: pointer;
+}
+
+#friendFrame:hover {
+    background-color: #fafbff;
+}
+
+#bubble_blue {
+    height: 3vh;
+    width: 3vh;
+    border-radius: 50%;
+    margin-left: 3%;
+    background-color: #1F56BD;
+}
+
+#nameFrame {
+    margin-left: 5%;
 }

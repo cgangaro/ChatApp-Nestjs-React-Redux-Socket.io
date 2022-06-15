@@ -1,10 +1,11 @@
 #main_AffMsg {
-    width: 50%;
-    background-color: #F5F6FF;
+    width: 60%;
+    /* background-color: #F5F6FF; */
+    background-color: #F3F6FF;
 }
 
 #affichage {
-    height: 85%;
+    height: 93%;
     overflow: hidden;
 }
 
@@ -37,6 +38,12 @@
     flex-direction: row;
 }
 
+.ROOT_CSS {
+    height: 60%;
+    height: 600;
+    width: 400;
+}
+
 .bubble {
     -webkit-border-radius: 80px / 80px;
     -moz-border-radius: 80px / 80px;
@@ -64,8 +71,71 @@
 
 
 #sendZone {
-    /* display: flex; */
-    /* flex-direction: column; */
-    height: 15%;
-    border: solid black 2px;
+    display: flex;
+    height: 6%;
+}
+
+#sendZone input {
+    -webkit-border-radius: 40px / 40px;
+    -moz-border-radius: 40px / 40px;
+    border-radius: 40px / 40px;
+    border: 1px solid #E7E9E8;
+    background-color: white;
+    color: black;
+    width: 80%;
+    height: 100%;
+    padding-left: 1vw;
+}
+
+#sendZone button {
+    position: relative;
+    -webkit-border-radius: 40px / 40px;
+    -moz-border-radius: 40px / 40px;
+    border-radius: 40px / 40px;
+    width: 20%;
+    height: 100%;
+    margin-left: 3%;
+    border: none;
+    background-color: #1F56BD;
+    color: white;
+    cursor:pointer;
+    user-select:none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s; /* Safari */
+}
+
+#sendZone button:hover {
+    background-color: white;
+    border: #1F56BD solid 1px;
+    cursor: pointer;
+    color: #1F56BD;
+}
+  
+#sendZone button:after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 4em;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.5s;
+    box-shadow: 0 0 10px 40px white;
+}
+
+#sendZone button:active:after {
+    box-shadow: 0 0 0 0 white;
+    position: absolute;
+    border-radius: 4em;
+    left: 0;
+    top:0;
+    opacity: 1;
+    transition: 0s;
+}
+
+#sendZone button:active {
+    top: 1px;
 }

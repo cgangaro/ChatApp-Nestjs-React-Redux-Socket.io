@@ -7,7 +7,9 @@ export enum ActionType { //enum c'est juste une énumération. Comme une liste q
 
 //pour le chat
 export enum MsgActionType {
-    ADDMSG = "ADDMSG"
+    ADDMSG = "ADDMSG",
+    ADDCONVERS = "ADDCONVERS",
+    SETACTIVECONVERS = "SETACTIVECONVERS"
 }
 
 export enum LogActionType {

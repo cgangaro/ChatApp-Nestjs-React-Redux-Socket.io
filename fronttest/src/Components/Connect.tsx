@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators, RootState } from '../State';
-import { msgList } from "../State/type";
+import { msg } from "../State/type";
 
 function connect() {
     const msgList = useSelector((state: RootState) => state.msg)
@@ -37,14 +37,14 @@ function connect() {
         setId(data);
     });
 
-    utilsData.socket.on('msgInputToOtherClient', function(msgToSend: any) {
-        console.log(msgToSend.sender, 'said: ', msgToSend.text);
-        let newmsg: msgList = {
-            sender: msgToSend.sender,
-            text: msgToSend.text
-        }
-        msgAdd(newmsg);
-    })
+    // utilsData.socket.on('msgInputToOtherClient', function(msgToSend: any) {
+    //     console.log(msgToSend.sender, 'said: ', msgToSend.text);
+    //     let newmsg: msg = {
+    //         sender: msgToSend.sender,
+    //         text: msgToSend.text
+    //     }
+    //     msgAdd(newmsg);
+    // })
   
 }
 

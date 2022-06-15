@@ -12,6 +12,7 @@ export const initialState: ClientList = {
 export const clientListReducer = (state: ClientList = initialState, action: clientListAction) => {
     switch (action.type) {
         case clientListActionType.ADDCLIENT: {
+            console.log("add client")
             return {
                 ...state,
                 count: state.count + 1,

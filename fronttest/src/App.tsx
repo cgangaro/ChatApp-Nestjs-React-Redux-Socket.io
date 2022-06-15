@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreators } from './State';
+import { actionCreators, store } from './State';
 import { RootState } from './State/Reducers';
 import AffMsg from './Components/AffMsg';
-import { msgList } from './State/type';
 import FriendsList from './Components/FriendsList';
 import HistoryList from './Components/HistoryList';
 import { validateInput } from './Utils/logUtils';
 import Test from './Components/Test';
 import LoginPage from './Components/LoginPage';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
+import Test1 from './Tests/Test1';
+import Test2 from './Tests/Test2';
+import Chat from './Components/Chat';
 
 function App() {
 
@@ -26,9 +29,9 @@ function App() {
     if (validateInput(logData.username))
       return (
         <>
-          <FriendsList />
-          <AffMsg />
-          <HistoryList />
+        <Chat />
+          {/* <FriendsList />
+          <AffMsg /> */}
         </>
       )
     else

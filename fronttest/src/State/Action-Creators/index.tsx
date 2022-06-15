@@ -2,7 +2,7 @@ import { Dispatch } from "redux"
 import { action } from "typesafe-actions";
 import { ActionType, clientListActionType, LogActionType, MsgActionType } from "../Action-Types"
 import { Action, clientListAction, logAction, msgAction } from "../Actions"
-import { Client, msgList } from "../type"
+import { Client, msg } from "../type"
 
 // export const todoActions = {
 //     add: (item: string) => action(actionTypes.ADD, item),
@@ -46,7 +46,8 @@ export const setId = (item: string) => {
     }
 }
 
-export const msgAdd = (item: msgList) => {
+
+export const msgAdd = (item: msg) => {
     return (dispatch: Dispatch<msgAction>) => { //Dispatch<Action> indique que nous envoyons une action Action
         dispatch({
             type: MsgActionType.ADDMSG,
@@ -54,6 +55,25 @@ export const msgAdd = (item: msgList) => {
         })
     }
 }
+
+export const conversAdd = (item: string) => {
+    return (dispatch: Dispatch<msgAction>) => { //Dispatch<Action> indique que nous envoyons une action Action
+        dispatch({
+            type: MsgActionType.ADDCONVERS,
+            payload: item
+        })
+    }
+}
+
+export const setActivConvers = (item: string) => {
+    return (dispatch: Dispatch<msgAction>) => { //Dispatch<Action> indique que nous envoyons une action Action
+        dispatch({
+            type: MsgActionType.SETACTIVECONVERS,
+            payload: item
+        })
+    }
+}
+
 
 //exemple
 export const depositMoney = (amount: number) => {
