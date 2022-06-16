@@ -23,10 +23,13 @@ export const clientListReducer = (state: ClientList = initialState, action: clie
         };
     }
     case clientListActionType.REMOVECLIENT: {
+      let _temp_active = state.active;
+      if (state.active == action.payload.username)
+        _temp_active = "";
       return {
           ...state,
           count: state.count - 1,
-          active: state.active,
+          active: _temp_active,
           list: state.list.filter(item => item.id !== action.payload.id)
         };
     }
